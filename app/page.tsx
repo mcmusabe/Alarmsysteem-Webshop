@@ -352,10 +352,10 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-medium text-black mb-4">
-              Optionele Extra's
+              Optionele Extra&apos;s
             </h2>
             <p className="text-lg text-gray-800 max-w-2xl mx-auto font-light">
-              Naast uw alarmsysteem kunnen wij ook camera's leveren en installeren
+              Naast uw alarmsysteem kunnen wij ook camera&apos;s leveren en installeren
             </p>
           </div>
 
@@ -368,7 +368,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-medium mb-4 text-black">Camera Bewaking</h3>
               <p className="text-gray-700 mb-6 leading-relaxed">
-                Wilt u naast uw alarmsysteem ook camera's? Neem contact met ons op voor een offerte op maat.
+                Wilt u naast uw alarmsysteem ook camera&apos;s? Neem contact met ons op voor een offerte op maat.
               </p>
               <a href="tel:0573215100" className="group/btn">
                 <Button variant="outline" size="md" className="group-hover/btn:scale-105 transition-transform">

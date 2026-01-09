@@ -98,24 +98,22 @@ export default function Modal({
         <div className="p-6">{children}</div>
 
         {/* Footer */}
-        {(onConfirm || onClose) && (
-          <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200">
-            <Button variant="ghost" onClick={onClose}>
-              {cancelText}
+        <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200">
+          <Button variant="ghost" onClick={onClose}>
+            {cancelText}
+          </Button>
+          {onConfirm && (
+            <Button
+              variant={variant === 'danger' ? 'accent' : 'primary'}
+              onClick={() => {
+                onConfirm()
+                onClose()
+              }}
+            >
+              {confirmText}
             </Button>
-            {onConfirm && (
-              <Button
-                variant={variant === 'danger' ? 'accent' : 'primary'}
-                onClick={() => {
-                  onConfirm()
-                  onClose()
-                }}
-              >
-                {confirmText}
-              </Button>
-            )}
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )
