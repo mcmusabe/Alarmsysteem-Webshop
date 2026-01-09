@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font wordt nu geladen via layout.tsx met preload voor betere performance */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
+
+:root {
+  /* Ajax Systems Kleuren */
+  --primary: #000000;
+  --primary-dark: #181818;
+  --primary-light: #242424;
+  --accent: #1DCF8E;
+  --accent-dark: #00AD74;
+  --accent-light: #5AE4AA;
+  --white: #FFFFFF;
+  /* Licht grijs */
+  --gray-light-1: #F7F7F7;
+  --gray-light-2: #EDEDED;
+  --gray-light-3: #DBDBDB;
+  --gray-light-4: #C7C7C7;
+  /* Midden grijs */
+  --gray-mid-1: #ADADAD;
+  --gray-mid-2: #919191;
+  --gray-mid-3: #787878;
+  --gray-mid-4: #5E5E5E;
+  /* Donker grijs */
+  --gray-dark-1: #3B3B3B;
+  --gray-dark-2: #303030;
+  --gray-dark-3: #242424;
+  --gray-dark-4: #181818;
+  --black: #000000;
+  --success: #1DCF8E;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-gray-900 antialiased;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  
+  h1 {
+    font-weight: 900;
+  }
+  
+  h2, h3 {
+    font-weight: 500;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-lg;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-black px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:!bg-accent-dark hover:!text-black hover:-translate-y-0.5 hover:shadow-lg;
+  }
+  
+  .btn-accent:hover {
+    background-color: #00AD74 !important;
+    color: #000000 !important;
+  }
+  
+  button.bg-accent:hover,
+  button[class*="bg-accent"]:hover,
+  a button.bg-accent:hover,
+  a[href] button.bg-accent:hover {
+    background-color: #00AD74 !important;
+    color: #000000 !important;
+  }
+  
+  /* Fix voor outline buttons met witte border en tekst */
+  button.border-white.text-white:hover,
+  button[class*="border-white"][class*="text-white"]:hover,
+  a button.border-white.text-white:hover,
+  a[href] button.border-white.text-white:hover,
+  a[href] > button.border-white.text-white:hover,
+  button[class*="border-white"]:hover[class*="text-white"] {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    border-color: #FFFFFF !important;
+  }
+  
+  /* Extra specifieke regel voor buttons binnen links */
+  a[href] button:hover.border-white {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary text-primary px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:bg-primary hover:text-white;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6 transition-shadow duration-200 hover:shadow-lg;
+  }
+  
+      .input {
+        @apply w-full border-2 border-gray-200 rounded-lg px-4 py-3 text-base transition-colors duration-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10;
+      }
+    }
+
+    @keyframes slide-in {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes modal-in {
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .animate-slide-in {
+      animation: slide-in 0.3s ease-out;
+    }
+
+    .animate-modal-in {
+      animation: modal-in 0.2s ease-out;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 0.6s ease-out;
+    }
+
+    .animate-fade-in-up {
+      animation: fade-in-up 0.6s ease-out;
+    }
+
+    .animate-fade-in-up-delay {
+      animation: fade-in-up 0.6s ease-out 0.2s both;
+    }
+
+    .animate-fade-in-up-delay-2 {
+      animation: fade-in-up 0.6s ease-out 0.4s both;
+    }
+
+    .animate-fade-in-up-delay-3 {
+      animation: fade-in-up 0.6s ease-out 0.6s both;
+    }
+
+    .animate-fade-in-up-delay-4 {
+      animation: fade-in-up 0.6s ease-out 0.8s both;
+    }
