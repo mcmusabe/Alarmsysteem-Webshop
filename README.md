@@ -209,12 +209,32 @@ Het project gebruikt:
 
 ## Deployment
 
-Het project kan worden gedeployed naar:
+### Railway (Aanbevolen)
+
+Het project is geconfigureerd voor deployment naar Railway. Zie [docs/RAILWAY_DEPLOYMENT.md](docs/RAILWAY_DEPLOYMENT.md) voor een complete deployment guide.
+
+**Quick Start:**
+1. Maak een Railway account op [railway.app](https://railway.app)
+2. Maak een nieuw project en verbind je GitHub repository
+3. Stel environment variables in:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `NODE_ENV=production`
+4. Railway deployt automatisch!
+
+### Andere Platforms
+
+Het project kan ook worden gedeployed naar:
 - **Vercel** (aanbevolen voor Next.js)
 - **Netlify**
+- **AWS Amplify**
 - Andere platforms die Next.js ondersteunen
 
 Zorg ervoor dat de environment variables correct zijn ingesteld in je deployment platform.
+
+### Production Checklist
+
+Zie [docs/PRODUCTION_CHECKLIST.md](docs/PRODUCTION_CHECKLIST.md) voor een complete checklist voordat je naar productie deployt.
 
 ## Licentie
 

@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Output mode for Railway (standalone is more efficient)
+  output: 'standalone',
+  
   // Image optimization
   images: {
     domains: [],
