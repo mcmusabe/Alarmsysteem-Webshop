@@ -128,7 +128,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   }`}
                 >
                   <Icon className="w-5 h-5 flex-shrink-0" />
-                  <span>{item.name}</span>
+                  {item.name}
                 </Link>
               )
             })}

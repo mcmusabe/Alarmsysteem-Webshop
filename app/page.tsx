@@ -425,23 +425,19 @@ export default function Home() {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/configurator" className="group">
-                <Button variant="accent" size="lg" className="text-lg px-8 py-4 shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 transition-all duration-300 group-hover:scale-105">
-                  <span className="flex items-center gap-2">
-                    Bestel Nu Uw Alarmsysteem
-                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </span>
+                <Button variant="accent" size="lg" className="text-lg px-8 py-4 shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 transition-all duration-300 group-hover:scale-105 flex items-center gap-2">
+                  Bestel Nu Uw Alarmsysteem
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </Button>
               </Link>
               <Link href="/afspraak" className="group">
-                <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-2 border-white/20 text-white bg-white/5 backdrop-blur-sm hover:!bg-white hover:!text-black hover:border-white transition-all duration-300 group-hover:scale-105">
-                  <span className="flex items-center gap-2">
-                    Plan Installatie Afspraak
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </span>
+                <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-2 border-white/20 text-white bg-white/5 backdrop-blur-sm hover:!bg-white hover:!text-black hover:border-white transition-all duration-300 group-hover:scale-105 flex items-center gap-2">
+                  Plan Installatie Afspraak
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
                 </Button>
               </Link>
             </div>

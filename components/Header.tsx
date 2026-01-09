@@ -36,6 +36,7 @@ export default function Header() {
             href="/" 
             className="group"
             aria-label="Home"
+            suppressHydrationWarning
           >
             <Logo 
               size="lg" 
@@ -46,7 +47,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1" suppressHydrationWarning>
+          <nav className="hidden lg:flex items-center space-x-1">
             <Link 
               href="/" 
               className="px-4 py-2 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium"
@@ -68,18 +69,15 @@ export default function Header() {
             <div className="h-6 w-px bg-gray-700 mx-2"></div>
             <a 
               href="tel:0573215100" 
-              className="px-4 py-2 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium flex items-center space-x-2"
-              suppressHydrationWarning
+              className="px-4 py-2 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium flex items-center gap-2"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span suppressHydrationWarning>0573 - 21 51 00</span>
+              0573 - 21 51 00
             </a>
-            <div suppressHydrationWarning>
-              {!mounted || loading ? (
-                <div className="ml-2 w-24 h-9 bg-gray-800 rounded-lg animate-pulse" />
-              ) : user ? (
+            {mounted && !loading ? (
+              user ? (
                 <Link href="/dashboard">
                   <Button variant="accent" size="sm" className="ml-2">
                     Dashboard
@@ -91,8 +89,10 @@ export default function Header() {
                     Inloggen
                   </Button>
                 </Link>
-              )}
-            </div>
+              )
+            ) : (
+              <div className="ml-2 w-24 h-9 bg-gray-800 rounded-lg animate-pulse" />
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -121,65 +121,62 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
-        <div
-          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-          }`}
-        >
-          <nav className="py-4 border-t border-gray-800" suppressHydrationWarning>
-            <div className="flex flex-col space-y-1">
-              <Link
-                href="/"
-                className="px-4 py-3 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/configurator"
-                className="px-4 py-3 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Configurator
-              </Link>
-              <Link
-                href="/afspraak"
-                className="px-4 py-3 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Afspraak
-              </Link>
-              <div className="border-t border-gray-700 my-2"></div>
-              <a
-                href="tel:0573215100"
-                className="px-4 py-3 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium flex items-center space-x-2"
-                suppressHydrationWarning
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                <span suppressHydrationWarning>0573 - 21 51 00</span>
-              </a>
-              <div suppressHydrationWarning>
-                {!mounted || loading ? (
-                  <div className="w-full mt-2 h-9 bg-gray-800 rounded-lg animate-pulse" />
-                ) : user ? (
-                  <Link href="/dashboard" className="w-full">
-                    <Button variant="accent" size="sm" className="w-full mt-2">
-                      Dashboard
-                    </Button>
-                  </Link>
+        {mobileMenuOpen && (
+          <div className="lg:hidden">
+            <nav className="py-4 border-t border-gray-800">
+              <div className="flex flex-col space-y-1">
+                <Link
+                  href="/"
+                  className="px-4 py-3 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/configurator"
+                  className="px-4 py-3 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Configurator
+                </Link>
+                <Link
+                  href="/afspraak"
+                  className="px-4 py-3 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Afspraak
+                </Link>
+                <div className="border-t border-gray-700 my-2"></div>
+                <a
+                  href="tel:0573215100"
+                  className="px-4 py-3 text-white hover:text-accent hover:bg-gray-900 rounded-lg transition-all font-medium flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  0573 - 21 51 00
+                </a>
+                {mounted && !loading ? (
+                  user ? (
+                    <Link href="/dashboard" className="w-full">
+                      <Button variant="accent" size="sm" className="w-full mt-2">
+                        Dashboard
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link href="/login" className="w-full">
+                      <Button variant="accent" size="sm" className="w-full mt-2">
+                        Inloggen
+                      </Button>
+                    </Link>
+                  )
                 ) : (
-                  <Link href="/login" className="w-full">
-                    <Button variant="accent" size="sm" className="w-full mt-2">
-                      Inloggen
-                    </Button>
-                  </Link>
+                  <div className="w-full mt-2 h-9 bg-gray-800 rounded-lg animate-pulse" />
                 )}
               </div>
-            </div>
-          </nav>
-        </div>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   )
