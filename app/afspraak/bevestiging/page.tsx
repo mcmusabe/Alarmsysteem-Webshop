@@ -1,11 +1,12 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
 
-export default function AfspraakBevestigingPage() {
+function AfspraakBevestigingContent() {
   const searchParams = useSearchParams()
   const datum = searchParams.get('datum')
   const tijd = searchParams.get('tijd')
@@ -58,5 +59,20 @@ export default function AfspraakBevestigingPage() {
         </Card>
       </div>
     </div>
+  )
+}
+
+export default function AfspraakBevestigingPage() {
+  return (
+    <Suspense fallback={
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-gray-600">Laden...</p>
+        </div>
+      </div>
+    }>
+      <AfspraakBevestigingContent />
+    </Suspense>
   )
 }

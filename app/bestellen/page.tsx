@@ -1,10 +1,11 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import OrderForm from '@/components/Order/OrderForm'
 import OrderSummary from '@/components/Order/OrderSummary'
 
-export default function BestellenPage() {
+function BestellenContent() {
   const searchParams = useSearchParams()
   const orderType = searchParams.get('type') || 'kopen'
 
@@ -28,5 +29,20 @@ export default function BestellenPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function BestellenPage() {
+  return (
+    <Suspense fallback={
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-center text-gray-600">Laden...</p>
+        </div>
+      </div>
+    }>
+      <BestellenContent />
+    </Suspense>
   )
 }

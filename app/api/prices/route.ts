@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { fetchProductPrices } from '@/lib/pricing/fetcher'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   try {
     // fetchProductPrices gebruikt nu interne caching
