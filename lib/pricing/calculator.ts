@@ -10,8 +10,8 @@ export function berekenInstallatieUren(
   // 1 uur per component
   const urenPerComponent = totaalComponenten * 1
   
-  // Extra uur voor alarmcentrale (alleen bij bedrijf)
-  const urenCentrale = configuratie.type === 'bedrijf' ? 1 : 0
+  // Extra uur voor alarmcentrale (altijd nodig)
+  const urenCentrale = 1
   
   return urenPerComponent + urenCentrale
 }
@@ -26,17 +26,14 @@ export function berekenPrijs(
   let totaalPrijs = 0
   let totaalComponenten = 0
   
-  // Componenten voor bedrijf
-  let bedrijfComponentenPrijs = 0
-  if (configuratie.type === 'bedrijf') {
-    bedrijfComponentenPrijs = 
-      prijzen.alarmcentrale +
-      prijzen.flitser +
-      prijzen.sirene +
-      prijzen.bedienpaneel
-    totaalPrijs += bedrijfComponentenPrijs
-    totaalComponenten += 4
-  }
+  // Basis componenten (zowel woning als bedrijf hebben deze nodig)
+  const basisComponentenPrijs = 
+    prijzen.alarmcentrale +
+    prijzen.flitser +
+    prijzen.sirene +
+    prijzen.bedienpaneel
+  totaalPrijs += basisComponentenPrijs
+  totaalComponenten += 4
   
   // Deurcontacten
   const deurcontactenPrijs = configuratie.aantalDeuren * prijzen.deurcontact
@@ -58,10 +55,10 @@ export function berekenPrijs(
     componenten: {
       deurcontacten: configuratie.aantalDeuren,
       pirSensoren: configuratie.aantalRuimtes,
-      alarmcentrale: configuratie.type === 'bedrijf' ? 1 : 0,
-      flitser: configuratie.type === 'bedrijf' ? 1 : 0,
-      sirene: configuratie.type === 'bedrijf' ? 1 : 0,
-      bedienpaneel: configuratie.type === 'bedrijf' ? 1 : 0,
+      alarmcentrale: 1, // Altijd nodig voor zowel woning als bedrijf
+      flitser: 1, // Altijd nodig voor zowel woning als bedrijf
+      sirene: 1, // Altijd nodig voor zowel woning als bedrijf
+      bedienpaneel: 1, // Altijd nodig voor zowel woning als bedrijf
     },
     installatieUren,
     installatieKosten: Math.round(installatieKosten * 100) / 100,
@@ -70,7 +67,7 @@ export function berekenPrijs(
     prijsDetails: {
       deurcontactenPrijs: Math.round(deurcontactenPrijs * 100) / 100,
       pirSensorenPrijs: Math.round(pirSensorenPrijs * 100) / 100,
-      bedrijfComponentenPrijs: Math.round(bedrijfComponentenPrijs * 100) / 100,
+      basisComponentenPrijs: Math.round(basisComponentenPrijs * 100) / 100,
     },
   }
 }

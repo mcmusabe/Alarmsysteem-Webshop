@@ -2,7 +2,7 @@
 
 import { useConfiguratorStore } from '@/lib/configurator/state'
 import { usePriceCalculation } from '@/hooks/usePriceCalculation'
-import PriceBreakdown from '@/components/PriceCalculator/PriceBreakdown'
+import PriceDisplay from '@/components/PriceCalculator/PriceDisplay'
 import Card from '@/components/ui/Card'
 
 export default function OrderSummary() {
@@ -33,7 +33,7 @@ export default function OrderSummary() {
         </div>
       </Card>
 
-      {prijsResultaat && <PriceBreakdown resultaat={prijsResultaat} />}
+      {prijsResultaat && <PriceDisplay resultaat={prijsResultaat} />}
     </div>
   )
 }

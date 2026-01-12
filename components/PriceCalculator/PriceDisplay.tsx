@@ -30,15 +30,15 @@ export default function PriceDisplay({ resultaat }: PriceDisplayProps) {
       </div>
       
       {/* Total Price - Large and prominent */}
-      <div className="text-center mb-4 pb-4 border-b border-gray-700/50">
-        <div className="text-4xl md:text-5xl font-black mb-1 text-white tracking-tight">
+      <div className="text-center mb-5 pb-5 border-b border-gray-700/50">
+        <div className="text-4xl md:text-5xl font-black mb-2 text-white tracking-tight">
           {formatPrice(resultaat.totaalPrijs)}
         </div>
-        <p className="text-xs text-gray-400 mt-1">Inclusief BTW en installatie</p>
+        <p className="text-sm text-gray-400 mt-1.5">Inclusief BTW en installatie</p>
       </div>
       
-      {/* Breakdown */}
-      <div className="space-y-2.5">
+      {/* Breakdown - Alleen componenten en installatie, geen individuele prijzen */}
+      <div className="space-y-3">
         {/* Componenten */}
         <div className="bg-gray-800/60 rounded-lg p-3 border border-gray-700/30 hover:border-gray-600/50 transition-colors">
           <div className="flex justify-between items-center">
@@ -65,19 +65,6 @@ export default function PriceDisplay({ resultaat }: PriceDisplayProps) {
             <span className="text-base font-bold text-white">{formatPrice(resultaat.subtotaalInstallatie)}</span>
           </div>
           <p className="text-xs text-gray-400 mt-1.5 ml-6">{resultaat.installatieUren} uur werk</p>
-        </div>
-        
-        {/* Total Button */}
-        <div className="bg-gradient-to-r from-green-600 to-green-500 rounded-lg p-3 mt-3 shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex justify-between items-center">
-            <span className="text-sm font-semibold text-white flex items-center gap-2">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Totaal
-            </span>
-            <span className="text-xl font-black text-white">{formatPrice(resultaat.totaalPrijs)}</span>
-          </div>
         </div>
       </div>
     </div>

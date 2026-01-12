@@ -3,7 +3,6 @@
 import { useConfiguratorStore } from '@/lib/configurator/state'
 import { usePriceCalculation } from '@/hooks/usePriceCalculation'
 import PriceDisplay from '@/components/PriceCalculator/PriceDisplay'
-import PriceBreakdown from '@/components/PriceCalculator/PriceBreakdown'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
@@ -59,8 +58,6 @@ export default function Stap6Overzicht() {
               )}
             </div>
           </Card>
-
-          {prijsResultaat && <PriceBreakdown resultaat={prijsResultaat} />}
         </div>
 
         {/* Prijs Display Sidebar */}
