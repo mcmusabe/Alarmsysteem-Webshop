@@ -17,7 +17,7 @@ export default function PriceDisplay({ resultaat }: PriceDisplayProps) {
   }
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-5 rounded-2xl shadow-2xl sticky top-4 border border-gray-700/50 backdrop-blur-sm max-h-[calc(100vh-2rem)] overflow-y-auto">
+    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-5 rounded-2xl shadow-2xl sticky top-4 border border-gray-700/50 backdrop-blur-sm max-h-[calc(100vh-2rem)] overflow-y-auto min-w-[280px]">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold flex items-center gap-2 text-white">
@@ -30,8 +30,8 @@ export default function PriceDisplay({ resultaat }: PriceDisplayProps) {
       </div>
       
       {/* Total Price - Large and prominent */}
-      <div className="text-center mb-5 pb-5 border-b border-gray-700/50">
-        <div className="w-full text-4xl md:text-5xl font-black mb-2 text-white leading-none tracking-tight break-words">
+      <div className="text-center mb-5 pb-5 border-b border-gray-700/50 px-2">
+        <div className="w-full text-2xl sm:text-3xl md:text-[2.5rem] font-black mb-2 text-white leading-[1.1] tracking-tight">
           {formatPrice(resultaat.totaalPrijs)}
         </div>
         <p className="text-sm text-gray-400 mt-1.5">Inclusief BTW en installatie</p>
