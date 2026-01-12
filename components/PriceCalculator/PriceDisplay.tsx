@@ -31,7 +31,7 @@ export default function PriceDisplay({ resultaat }: PriceDisplayProps) {
       
       {/* Total Price - Large and prominent */}
       <div className="text-center mb-5 pb-5 border-b border-gray-700/50">
-        <div className="text-4xl md:text-5xl font-black mb-2 text-white tracking-tight">
+        <div className="w-full text-4xl md:text-5xl font-black mb-2 text-white leading-none tracking-tight break-words">
           {formatPrice(resultaat.totaalPrijs)}
         </div>
         <p className="text-sm text-gray-400 mt-1.5">Inclusief BTW en installatie</p>

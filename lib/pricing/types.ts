@@ -32,6 +32,6 @@ export interface PriceCalculationResult {
   prijsDetails: {
     deurcontactenPrijs: number
     pirSensorenPrijs: number
-    bedrijfComponentenPrijs: number
+    basisComponentenPrijs: number
   }
 }
