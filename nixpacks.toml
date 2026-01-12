@@ -5,7 +5,7 @@ nixPkgs = ['nodejs-18_x', 'npm-9_x']
 cmds = ['npm ci --production=false']
 
 [phases.build]
-cmds = ['npm run build']
+cmds = ['npm run build', 'node scripts/copy-sharp.js']
 
 [start]
 cmd = 'node .next/standalone/server.js'
