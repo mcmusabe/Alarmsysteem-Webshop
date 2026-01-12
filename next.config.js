@@ -12,7 +12,8 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
     // Disable image optimization to avoid sharp dependency issues in standalone mode
-    unoptimized: true,
+    // Use environment variable for runtime control
+    unoptimized: process.env.DISABLE_IMAGE_OPTIMIZATION === 'true' || true,
   },
   
   // Compression
