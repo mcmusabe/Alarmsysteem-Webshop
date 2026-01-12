@@ -3,15 +3,16 @@ const nextConfig = {
   // Output mode for Railway (standalone is more efficient)
   output: 'standalone',
   
-  // Image optimization
+  // Image optimization - Disabled for standalone mode compatibility
+  // Sharp is not reliably available in standalone mode, so we disable optimization
   images: {
     domains: [],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
-    // Disable image optimization if sharp is not available (fallback)
-    unoptimized: process.env.DISABLE_IMAGE_OPTIMIZATION === 'true',
+    // Disable image optimization to avoid sharp dependency issues in standalone mode
+    unoptimized: true,
   },
   
   // Compression
