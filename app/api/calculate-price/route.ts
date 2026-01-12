@@ -4,6 +4,8 @@ import { fetchProductPrices } from '@/lib/pricing/fetcher'
 import { validateConfiguration } from '@/lib/validation'
 import { ConfigurationInput } from '@/lib/pricing/types'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json() as ConfigurationInput
@@ -33,10 +35,39 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Fout bij prijsberekening:', error)
+    
+    // Meer gedetailleerde error handling
+    if (error instanceof Error) {
+      // Database/Supabase errors
+      if (error.message.includes('Fout bij ophalen')) {
+        return NextResponse.json(
+          { 
+            success: false,
+            error: 'Database fout',
+            details: error.message
+          },
+          { status: 503 }
+        )
+      }
+      
+      // Validatie errors
+      if (error.message.includes('Ontbrekende prijzen')) {
+        return NextResponse.json(
+          { 
+            success: false,
+            error: 'Configuratie fout',
+            details: error.message
+          },
+          { status: 500 }
+        )
+      }
+    }
+    
     return NextResponse.json(
       { 
         success: false,
-        error: error instanceof Error ? error.message : 'Interne server fout' 
+        error: error instanceof Error ? error.message : 'Interne server fout',
+        details: process.env.NODE_ENV === 'development' ? String(error) : undefined
       },
       { status: 500 }
     )

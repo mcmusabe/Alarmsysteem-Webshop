@@ -1,12 +1,19 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, ReactNode } from 'react'
 import clsx from 'clsx'
 
 export interface Toast {
   id: string
+  title?: string
   message: string
-  type: 'success' | 'error' | 'info' | 'warning'
+  type?: 'success' | 'error' | 'info' | 'warning' | 'primary' | 'secondary' | 'neutral'
+  duration?: number
+  icon?: ReactNode
+  actions?: Array<{
+    label: string
+    onClick: () => void
+  }>
 }
 
 interface ToastProps {
@@ -15,15 +22,19 @@ interface ToastProps {
 }
 
 export default function Toast({ toast, onClose }: ToastProps) {
+  const duration = toast.duration ?? 5000
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onClose(toast.id)
-    }, 5000)
+    if (duration > 0) {
+      const timer = setTimeout(() => {
+        onClose(toast.id)
+      }, duration)
 
-    return () => clearTimeout(timer)
-  }, [toast.id, onClose])
+      return () => clearTimeout(timer)
+    }
+  }, [toast.id, duration, onClose])
 
-  const icons = {
+  const defaultIcons = {
     success: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -64,27 +75,107 @@ export default function Toast({ toast, onClose }: ToastProps) {
         />
       </svg>
     ),
+    primary: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    ),
+    secondary: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    ),
+    neutral: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    ),
   }
 
-  const styles = {
-    success: 'bg-green-50 border-green-200 text-green-800',
-    error: 'bg-red-50 border-red-200 text-red-800',
-    info: 'bg-blue-50 border-blue-200 text-blue-800',
-    warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
+  const type = toast.type || 'neutral'
+  const icon = toast.icon || defaultIcons[type]
+
+  const colorStyles = {
+    success: 'bg-white shadow-lg ring ring-green-500/20 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-green-500',
+    error: 'bg-white shadow-lg ring ring-red-500/20 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-500',
+    info: 'bg-white shadow-lg ring ring-blue-500/20 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500',
+    warning: 'bg-white shadow-lg ring ring-yellow-500/20 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-yellow-500',
+    primary: 'bg-white shadow-lg ring ring-black/20 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-black',
+    secondary: 'bg-white shadow-lg ring ring-gray-500/20 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-500',
+    neutral: 'bg-white shadow-lg ring ring-gray-300 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-500',
+  }
+
+  const iconColors = {
+    success: 'text-green-600',
+    error: 'text-red-600',
+    info: 'text-blue-600',
+    warning: 'text-yellow-600',
+    primary: 'text-black',
+    secondary: 'text-gray-600',
+    neutral: 'text-gray-700',
   }
 
   return (
     <div
       className={clsx(
-        'flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg min-w-[300px] max-w-md animate-slide-in',
-        styles[toast.type]
+        'relative group overflow-hidden bg-white shadow-lg rounded-lg ring ring-gray-200 p-4 flex gap-2.5 focus:outline-none min-w-[300px] max-w-md animate-slide-in',
+        colorStyles[type]
       )}
+      role="alert"
     >
-      <div className="flex-shrink-0">{icons[toast.type]}</div>
-      <p className="flex-1 text-sm font-medium">{toast.message}</p>
+      {/* Icon */}
+      <div className={clsx('shrink-0 size-5', iconColors[type])}>
+        {icon}
+      </div>
+
+      {/* Content */}
+      <div className="w-0 flex-1 flex flex-col">
+        {toast.title && (
+          <p className="text-sm font-medium text-gray-900">
+            {toast.title}
+          </p>
+        )}
+        <p className={clsx('text-sm text-gray-700', toast.title && 'mt-1')}>
+          {toast.message}
+        </p>
+        {toast.actions && toast.actions.length > 0 && (
+          <div className="flex gap-1.5 shrink-0 mt-2.5">
+            {toast.actions.map((action, index) => (
+              <button
+                key={index}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  action.onClick()
+                }}
+                className="text-xs px-2 py-1 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition-colors"
+              >
+                {action.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Close Button */}
       <button
         onClick={() => onClose(toast.id)}
-        className="flex-shrink-0 text-current opacity-70 hover:opacity-100 transition-opacity"
+        className="p-0 flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+        aria-label="Sluiten"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -95,6 +186,26 @@ export default function Toast({ toast, onClose }: ToastProps) {
           />
         </svg>
       </button>
+
+      {/* Progress Bar */}
+      {duration > 0 && (
+        <div className="absolute inset-x-0 bottom-0 h-1 bg-gray-200">
+          <div
+            className={clsx(
+              'h-full transition-all ease-linear',
+              type === 'success' && 'bg-green-600',
+              type === 'error' && 'bg-red-600',
+              type === 'info' && 'bg-blue-600',
+              type === 'warning' && 'bg-yellow-600',
+              type === 'primary' && 'bg-black',
+              (type === 'secondary' || type === 'neutral') && 'bg-gray-600'
+            )}
+            style={{
+              animation: `shrink ${duration}ms linear forwards`,
+            }}
+          />
+        </div>
+      )}
     </div>
   )
 }

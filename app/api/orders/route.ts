@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createOrder } from '@/lib/orders/create'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()

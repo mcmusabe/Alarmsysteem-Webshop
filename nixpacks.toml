@@ -12,3 +12,4 @@ cmd = 'node .next/standalone/server.js'
 
 [variables]
 NODE_ENV = 'production'
+DISABLE_IMAGE_OPTIMIZATION = 'true'

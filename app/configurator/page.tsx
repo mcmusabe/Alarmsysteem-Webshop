@@ -48,21 +48,23 @@ export default function ConfiguratorPage() {
 
   return (
     <Wizard currentStep={currentStep} totalSteps={TOTAL_STEPS}>
-      <div className="bg-white rounded-lg shadow-lg p-8">
+      <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 lg:p-8">
         {renderStep()}
         
         {currentStep < TOTAL_STEPS && (
-          <div className="flex justify-between mt-8 pt-8 border-t">
+          <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 mt-6 sm:mt-8 pt-6 sm:pt-8 border-t">
             <Button
               variant="outline"
               onClick={handlePrevious}
               disabled={currentStep === 1}
+              className="w-full sm:w-auto order-2 sm:order-1"
             >
               Vorige
             </Button>
             <Button
               variant="accent"
               onClick={handleNext}
+              className="w-full sm:w-auto order-1 sm:order-2"
             >
               Volgende
             </Button>

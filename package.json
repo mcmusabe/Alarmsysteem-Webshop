@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npm run postbuild",
-    "postbuild": "node scripts/copy-sharp.js",
+    "build": "next build",
     "start": "node .next/standalone/server.js",
     "start:dev": "next start",
     "lint": "next lint",

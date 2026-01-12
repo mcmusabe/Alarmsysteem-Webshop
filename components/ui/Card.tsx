@@ -3,24 +3,43 @@ import clsx from 'clsx'
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
-  variant?: 'default' | 'elevated' | 'outlined'
+  variant?: 'solid' | 'outline' | 'soft' | 'subtle'
+  header?: ReactNode
+  footer?: ReactNode
 }
 
 export default function Card({
   children,
-  variant = 'default',
+  variant = 'outline',
+  header,
+  footer,
   className,
   ...props
 }: CardProps) {
+  const baseStyles = 'rounded-lg overflow-hidden'
+  
   const variants = {
-    default: 'bg-white rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1',
-    elevated: 'bg-white rounded-xl shadow-xl p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1',
-    outlined: 'bg-white rounded-xl border-2 border-gray-200 p-6 transition-all duration-300 hover:border-black hover:shadow-lg hover:-translate-y-1',
+    solid: 'bg-gray-900 text-white divide-y divide-gray-800',
+    outline: 'bg-white ring ring-gray-200 divide-y divide-gray-200',
+    soft: 'bg-gray-50/50 divide-y divide-gray-200',
+    subtle: 'bg-gray-50/50 ring ring-gray-200 divide-y divide-gray-200',
   }
   
   return (
-    <div className={clsx(variants[variant], className)} {...props}>
-      {children}
+    <div className={clsx(baseStyles, variants[variant], className)} {...props}>
+      {header && (
+        <div className="p-4 sm:px-6">
+          {header}
+        </div>
+      )}
+      <div className="p-4 sm:p-6">
+        {children}
+      </div>
+      {footer && (
+        <div className="p-4 sm:px-6">
+          {footer}
+        </div>
+      )}
     </div>
   )
 }

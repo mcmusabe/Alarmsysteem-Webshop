@@ -4,7 +4,12 @@ import { createContext, useContext, useState, useCallback, ReactNode } from 'rea
 import Toast, { Toast as ToastType } from './Toast'
 
 interface ToastContextType {
-  showToast: (message: string, type: 'success' | 'error' | 'info' | 'warning') => void
+  showToast: (
+    message: string,
+    type?: 'success' | 'error' | 'info' | 'warning' | 'primary' | 'secondary' | 'neutral',
+    options?: Partial<Omit<ToastType, 'id' | 'message' | 'type'>>
+  ) => void
+  add: (toast: Omit<ToastType, 'id'>) => void
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined)
@@ -20,9 +25,18 @@ export function useToast() {
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<ToastType[]>([])
 
-  const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' | 'warning') => {
+  const showToast = useCallback((
+    message: string,
+    type: 'success' | 'error' | 'info' | 'warning' | 'primary' | 'secondary' | 'neutral' = 'neutral',
+    options?: Partial<Omit<ToastType, 'id' | 'message' | 'type'>>
+  ) => {
     const id = Math.random().toString(36).substring(7)
-    setToasts((prev) => [...prev, { id, message, type }])
+    setToasts((prev) => [...prev, { id, message, type, ...options }])
+  }, [])
+
+  const add = useCallback((toast: Omit<ToastType, 'id'>) => {
+    const id = Math.random().toString(36).substring(7)
+    setToasts((prev) => [...prev, { id, ...toast }])
   }, [])
 
   const removeToast = useCallback((id: string) => {
@@ -30,9 +44,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <ToastContext.Provider value={{ showToast }}>
+    <ToastContext.Provider value={{ showToast, add }}>
       {children}
-      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
+      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-md">
         {toasts.map((toast) => (
           <Toast key={toast.id} toast={toast} onClose={removeToast} />
         ))}

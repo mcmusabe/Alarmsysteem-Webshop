@@ -340,6 +340,7 @@ export default function Home() {
                 fill
                 className="object-contain p-4"
                 priority
+                unoptimized
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1280px"
               />
             </div>

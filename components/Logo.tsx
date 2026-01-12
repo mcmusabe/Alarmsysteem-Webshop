@@ -35,6 +35,7 @@ export default function Logo({
       height={200}
       className={sizeClasses[size]}
       priority
+      unoptimized
     />
   )
 
