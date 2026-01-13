@@ -1,9 +1,22 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import { AuthProvider } from '@/components/Auth/AuthProvider'
+import Footer from '@/components/Footer'
 import dynamic from 'next/dynamic'
+
+// Lazy load Header to prevent hydration issues
+const Header = dynamic(() => import('@/components/Header'), {
+  ssr: false,
+  loading: () => (
+    <header className="sticky top-0 z-50 bg-black shadow-md">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          <div className="h-8 w-32 bg-gray-800 animate-pulse rounded"></div>
+        </div>
+      </div>
+    </header>
+  ),
+})
 
 // Lazy load ChatbotWidget voor betere initial load performance
 const ChatbotWidget = dynamic(() => import('@/components/Chatbot/ChatbotWidget'), {
