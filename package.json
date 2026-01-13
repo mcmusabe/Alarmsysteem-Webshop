@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node .next/standalone/server.js",
-    "start:dev": "next start",
+    "start": "next start",
     "lint": "next lint",
     "check-storage": "tsx scripts/check-storage.ts",
     "create-admin": "tsx scripts/create-admin.ts",

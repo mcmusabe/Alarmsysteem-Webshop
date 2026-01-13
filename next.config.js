@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Output mode for Railway (standalone is more efficient)
-  // Only use standalone in production builds, not during development
-  ...(process.env.NODE_ENV === 'production' ? { output: 'standalone' } : {}),
-  
+  // Standalone mode disabled - causes sharp issues on Railway
+  // Using standard Next.js server mode instead
+
   // Image optimization - Disabled for Railway deployment
   // Images will be served as-is without optimization to avoid sharp issues
   images: {
