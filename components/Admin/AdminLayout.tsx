@@ -4,6 +4,7 @@ import { useAuth } from '@/components/Auth/AuthProvider'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Button from '@/components/ui/Button'
 import {
   DashboardIcon,
@@ -13,7 +14,8 @@ import {
   ProductsIcon,
   SettingsIcon,
 } from './Icons'
-import Spinner from '@/components/ui/Spinner'
+
+const Spinner = dynamic(() => import('@/components/ui/Spinner'), { ssr: false })
 
 interface AdminLayoutProps {
   children: React.ReactNode
@@ -34,7 +36,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
+  // Skip auth check for login page
+  const isLoginPage = pathname === '/admin/login'
+
   useEffect(() => {
+    // Don't redirect if we're on the login page
+    if (isLoginPage) return
+    
     if (!loading) {
       if (!user) {
         router.push('/admin/login')
@@ -46,7 +54,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         }
       }
     }
-  }, [user, loading, router])
+  }, [user, loading, router, isLoginPage])
+
+  // On login page, just render children without layout
+  if (isLoginPage) {
+    return <>{children}</>
+  }
 
   if (loading) {
     return (
