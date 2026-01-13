@@ -5,11 +5,14 @@ nixPkgs = ['nodejs-20_x', 'npm-10_x']
 cmds = ['npm ci --production=false']
 
 [phases.build]
-cmds = ['npm run build']
+cmds = [
+  'npm run build',
+  'cp -r node_modules/sharp .next/standalone/node_modules/ || true'
+]
 
 [start]
 cmd = 'node .next/standalone/server.js'
 
 [variables]
 NODE_ENV = 'production'
-DISABLE_IMAGE_OPTIMIZATION = 'true'
+NEXT_SHARP_PATH = '/tmp/node_modules/sharp'

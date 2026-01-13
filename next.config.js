@@ -1,18 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Output mode for Railway (standalone is more efficient)
-  output: 'standalone',
+  // Only use standalone in production builds, not during development
+  ...(process.env.NODE_ENV === 'production' ? { output: 'standalone' } : {}),
   
-  // Image optimization - Disabled for standalone mode compatibility
-  // Sharp is not reliably available in standalone mode, so we disable optimization
+  // Image optimization - Disabled for Railway deployment
+  // Images will be served as-is without optimization to avoid sharp issues
   images: {
-    domains: [],
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
-    // Disable image optimization to avoid sharp dependency issues in standalone mode
-    // Always disabled - images will be served as-is without optimization
     unoptimized: true,
   },
   
